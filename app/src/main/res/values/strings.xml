@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">The boys entregas</string>
+    <string name="enter">Entrar</string>
+    <string name="signIn">Não tem uma conta? Crie aqui!</string>
+    <string name="insert">Cadastrar</string>
+    <string name="photo">Foto</string>
+    <string name="contacts">Contatos</string>
+    <string name="logout">sair</string>
+    <string name="Enviar">Enviar</string>
+    <string name="message">Digite a mensagem...</string>
+</resources>
