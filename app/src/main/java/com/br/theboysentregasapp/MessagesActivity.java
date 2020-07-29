@@ -19,6 +19,7 @@ import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.squareup.picasso.Picasso;
 import com.xwray.groupie.GroupAdapter;
 import com.xwray.groupie.Item;
@@ -35,6 +36,10 @@ public class MessagesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_messages);
 
+        ChatApplication application = (ChatApplication) getApplication();
+
+        getApplication().registerActivityLifecycleCallbacks(application);
+
         RecyclerView rv = findViewById(R.id.recycler_contact);
         rv.setLayoutManager(new LinearLayoutManager(this));
 
@@ -42,31 +47,46 @@ public class MessagesActivity extends AppCompatActivity {
         rv.setAdapter(adapter);
 
         verifyAuthentication();
+
+        updateToken();
         fetchLastMessage();
+    }
+
+    private void updateToken() {
+        String token = FirebaseInstanceId.getInstance().getToken();
+        String uid = FirebaseAuth.getInstance().getUid();
+
+        if (uid != null) {
+            FirebaseFirestore.getInstance().collection("users")
+                    .document(uid)
+                    .update("token", token);
+        }
     }
 
     private void fetchLastMessage() {
         String uid = FirebaseAuth.getInstance().getUid();
 
-        FirebaseFirestore.getInstance().collection("/last-messages")
-                .document(uid)
-                .collection("contacts")
-                .addSnapshotListener(new EventListener<QuerySnapshot>() {
-                    @Override
-                    public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
-                        List<DocumentChange> documentChanges = value.getDocumentChanges();
+        if (uid != null) {
+            FirebaseFirestore.getInstance().collection("/last-messages")
+                    .document(uid)
+                    .collection("contacts")
+                    .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                        @Override
+                        public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                            List<DocumentChange> documentChanges = value.getDocumentChanges();
 
-                        if (documentChanges != null) {
-                            for (DocumentChange doc : documentChanges) {
-                                if (doc.getType() == DocumentChange.Type.ADDED) {
-                                    Contact contact = doc.getDocument().toObject(Contact.class);
+                            if (documentChanges != null) {
+                                for (DocumentChange doc : documentChanges) {
+                                    if (doc.getType() == DocumentChange.Type.ADDED) {
+                                        Contact contact = doc.getDocument().toObject(Contact.class);
 
-                                    adapter.add(new ContactItem(contact));
+                                        adapter.add(new ContactItem(contact));
+                                    }
                                 }
                             }
                         }
-                    }
-                });
+                    });
+        }
     }
 
 

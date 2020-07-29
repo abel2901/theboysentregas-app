@@ -8,6 +8,8 @@ public class User implements Parcelable {
     private String uuid;
     private String username;
     private String profileUrl;
+    private String token;
+    private boolean online;
 
     public User() {
 
@@ -23,6 +25,8 @@ public class User implements Parcelable {
         uuid = in.readString();
         username = in.readString();
         profileUrl = in.readString();
+        token = in.readString();
+        online = in.readInt() == 1;
     }
 
     public static final Creator<User> CREATOR = new Creator<User>() {
@@ -36,6 +40,14 @@ public class User implements Parcelable {
             return new User[size];
         }
     };
+
+    public String getToken() {
+        return token;
+    }
+
+    public boolean isOnline() {
+        return online;
+    }
 
     public String getUuid() {
         return uuid;
@@ -59,5 +71,7 @@ public class User implements Parcelable {
         parcel.writeString(uuid);
         parcel.writeString(username);
         parcel.writeString(profileUrl);
+        parcel.writeString(token);
+        parcel.writeInt(online ? 1 : 0);
     }
 }

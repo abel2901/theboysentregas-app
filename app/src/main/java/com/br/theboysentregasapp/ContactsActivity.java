@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -66,11 +67,14 @@ public class ContactsActivity extends AppCompatActivity {
                         }
 
                         List<DocumentSnapshot> docs = value.getDocuments();
+                        adapter.clear();
                         for (DocumentSnapshot doc : docs) {
                             User user = doc.toObject(User.class);
-                            Log.d("Teste", user.getUsername());
-
+                            String uid = FirebaseAuth.getInstance().getUid();
+                            if (user.getUuid().equals(uid))
+                                continue;
                             adapter.add(new UserItem(user));
+                            adapter.notifyDataSetChanged();
                         }
                     }
                 });
