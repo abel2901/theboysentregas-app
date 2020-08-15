@@ -1,5 +1,6 @@
 package com.br.theboysentregasapp;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -44,12 +45,23 @@ public class ChatActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
 
+        SharedPreferences prefs = getSharedPreferences("key", MODE_PRIVATE);
+        String occupations = prefs.getString("occupation", "");
+
         user = getIntent().getExtras().getParcelable("user");
         getSupportActionBar().setTitle(user.getUsername());
 
         RecyclerView recyclerView = findViewById(R.id.recycler_chat);
         editChat = findViewById(R.id.edit_chat);
         Button btnChat = findViewById(R.id.btn_chat);
+
+        if (occupations.equals("Motoboy")) {
+            editChat.setVisibility(View.GONE);
+            btnChat.setVisibility(View.GONE);
+        } else {
+            editChat.setVisibility(View.VISIBLE);
+            btnChat.setVisibility(View.VISIBLE);
+        }
 
         btnChat.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -8,4 +8,9 @@
     <string name="logout">sair</string>
     <string name="Enviar">Enviar</string>
     <string name="message">Digite a mensagem...</string>
+    <string name="password">Senha</string>
+    <string name="email">Email</string>
+    <string name="name">Nome</string>
+    <string name="operator">Operador</string>
+    <string name="motoboy">Motoboy</string>
 </resources>

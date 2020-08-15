@@ -10,15 +10,17 @@ public class User implements Parcelable {
     private String profileUrl;
     private String token;
     private boolean online;
+    private String occupation;
 
     public User() {
 
     }
 
-    public User(String uuid, String username, String profileUrl) {
+    public User(String uuid, String username, String profileUrl, String occupation) {
         this.uuid = uuid;
         this.username = username;
         this.profileUrl = profileUrl;
+        this.occupation = occupation;
     }
 
     protected User(Parcel in) {
@@ -27,6 +29,7 @@ public class User implements Parcelable {
         profileUrl = in.readString();
         token = in.readString();
         online = in.readInt() == 1;
+        occupation = in.readString();
     }
 
     public static final Creator<User> CREATOR = new Creator<User>() {
@@ -61,6 +64,14 @@ public class User implements Parcelable {
         return profileUrl;
     }
 
+    public String getOccupation() {
+        return occupation;
+    }
+
+    public void setOccupation(String occupation) {
+        this.occupation = occupation;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -73,5 +84,6 @@ public class User implements Parcelable {
         parcel.writeString(profileUrl);
         parcel.writeString(token);
         parcel.writeInt(online ? 1 : 0);
+        parcel.writeString(occupation);
     }
 }

@@ -12,11 +12,11 @@
         android:layout_width="0dp"
         android:layout_height="50dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="24dp"
         android:layout_marginEnd="16dp"
         android:background="@drawable/bg_edittext_rounded"
         android:ems="10"
-        android:hint="Nome"
+        android:hint="@string/name"
         android:inputType="textEmailAddress"
         android:paddingLeft="8dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -30,7 +30,7 @@
         android:layout_marginTop="8dp"
         android:background="@drawable/bg_edittext_rounded"
         android:ems="10"
-        android:hint="Email"
+        android:hint="@string/email"
         android:inputType="textEmailAddress"
         android:paddingLeft="8dp"
         app:layout_constraintEnd_toEndOf="@id/edit_username"
@@ -44,24 +44,55 @@
         android:layout_marginTop="8dp"
         android:background="@drawable/bg_edittext_rounded"
         android:ems="10"
-        android:hint="Senha"
+        android:hint="@string/password"
         android:inputType="textPassword"
         android:paddingLeft="8dp"
         app:layout_constraintEnd_toEndOf="@+id/edit_email"
         app:layout_constraintStart_toStartOf="@+id/edit_email"
         app:layout_constraintTop_toBottomOf="@+id/edit_email" />
 
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="@+id/edit_password"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/edit_password"
+        app:layout_constraintTop_toBottomOf="@+id/edit_password">
+
+        <RadioButton
+            android:id="@+id/radio_motoboy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:buttonTint="@color/yellowDefaultTheme"
+            android:onClick="onRadioButtonClicked"
+            android:paddingRight="15dp"
+            android:text="@string/motoboy" />
+
+        <RadioButton
+            android:id="@+id/radio_operator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:buttonTint="@color/yellowDefaultTheme"
+            android:onClick="onRadioButtonClicked"
+            android:text="@string/operator" />
+
+    </RadioGroup>
+
     <Button
         android:id="@+id/btn_enter"
         android:layout_width="0dp"
         android:layout_height="50dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="12dp"
         android:background="@drawable/bg_button_rounded"
         android:text="@string/insert"
         android:textColor="@android:color/white"
         app:layout_constraintEnd_toEndOf="@+id/edit_password"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/edit_password"
-        app:layout_constraintTop_toBottomOf="@+id/edit_password" />
+        app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
 
     <Button
         android:id="@+id/btn_selected_photo"
