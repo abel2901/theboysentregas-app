@@ -13,4 +13,9 @@
     <string name="name">Nome</string>
     <string name="operator">Operador</string>
     <string name="motoboy">Motoboy</string>
+    <string name="forget_password">Esqueceu a senha?</string>
+    <string name="reset_password_info">Uma solicitação foi enviada para o email informado para a mudança de senha.
+        Por favor, verifique o email!</string>
+    <string name="back">Voltar</string>
+    <string name="reset">Resetar</string>
 </resources>

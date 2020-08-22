@@ -75,7 +75,7 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
 
-        getSupportActionBar().setTitle("Registrar");
+        getSupportActionBar().setTitle("Sign up");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         mBtnEnter.setOnClickListener(new View.OnClickListener() {

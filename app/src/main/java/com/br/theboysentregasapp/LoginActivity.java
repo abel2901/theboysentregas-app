@@ -24,6 +24,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText mEditPassword;
     private Button mBtnEnter;
     private TextView mTxtAccount;
+    private TextView mTxtForgetPassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +37,7 @@ public class LoginActivity extends AppCompatActivity {
         mEditPassword = findViewById(R.id.edit_password);
         mBtnEnter = findViewById(R.id.btn_enter);
         mTxtAccount = findViewById(R.id.txt_account);
+        mTxtForgetPassword = findViewById(R.id.txt_forget_password);
 
         mBtnEnter.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,6 +80,14 @@ public class LoginActivity extends AppCompatActivity {
                 Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
                 startActivity(intent);
 
+            }
+        });
+
+        mTxtForgetPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(LoginActivity.this, ResetPasswordActivity.class);
+                startActivity(intent);
             }
         });
     }
