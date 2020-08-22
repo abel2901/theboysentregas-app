@@ -218,12 +218,10 @@ public class ChatActivity extends AppCompatActivity {
         @Override
         public void bind(@NonNull ViewHolder viewHolder, int position) {
             TextView txtMsg = viewHolder.itemView.findViewById(R.id.txt_message);
-            ImageView imgMessage = viewHolder.itemView.findViewById(R.id.image_message_user);
 
             txtMsg.setText(message.getText());
             Picasso.get()
-                    .load(user.getProfileUrl())
-                    .into(imgMessage);
+                    .load(user.getProfileUrl());
         }
 
         @Override
