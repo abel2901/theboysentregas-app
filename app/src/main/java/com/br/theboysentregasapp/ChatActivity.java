@@ -31,6 +31,8 @@ import com.xwray.groupie.GroupAdapter;
 import com.xwray.groupie.Item;
 import com.xwray.groupie.ViewHolder;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 public class ChatActivity extends AppCompatActivity {
@@ -38,7 +40,10 @@ public class ChatActivity extends AppCompatActivity {
     private GroupAdapter adapter;
     private User user;
     private EditText editChat;
+    private Button btnChat;
     private User me;
+
+    public static final String BREAK_LINE = "\n";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,15 +58,7 @@ public class ChatActivity extends AppCompatActivity {
 
         RecyclerView recyclerView = findViewById(R.id.recycler_chat);
         editChat = findViewById(R.id.edit_chat);
-        Button btnChat = findViewById(R.id.btn_chat);
-
-        if (occupations.equals("Motoboy")) {
-            editChat.setVisibility(View.GONE);
-            btnChat.setVisibility(View.GONE);
-        } else {
-            editChat.setVisibility(View.VISIBLE);
-            btnChat.setVisibility(View.VISIBLE);
-        }
+        btnChat = findViewById(R.id.btn_chat);
 
         btnChat.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -81,6 +78,13 @@ public class ChatActivity extends AppCompatActivity {
                     @Override
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
                         me = documentSnapshot.toObject(User.class);
+                        if (me.getOccupation().equals("Motoboy")) {
+                            editChat.setVisibility(View.GONE);
+                            btnChat.setVisibility(View.GONE);
+                        } else {
+                            editChat.setVisibility(View.VISIBLE);
+                            btnChat.setVisibility(View.VISIBLE);
+                        }
                         fetchMessages();
                     }
                 });
@@ -119,13 +123,14 @@ public class ChatActivity extends AppCompatActivity {
         editChat.setText(null);
         final String fromId = FirebaseAuth.getInstance().getUid();
         final String toId = user.getUuid();
+        String timeMessage = new SimpleDateFormat("dd/MM/yyyy HH:mm").format(new Date());
 
         long timestamp = System.currentTimeMillis();
         final Message message = new Message();
         message.setFromId(fromId);
         message.setToId(toId);
         message.setTimestamp(timestamp);
-        message.setText(text);
+        message.setText(text + BREAK_LINE + timeMessage);
 
         if (!message.getText().isEmpty()) {
             FirebaseFirestore.getInstance().collection("/conversations")
